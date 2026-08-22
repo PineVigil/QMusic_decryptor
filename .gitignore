@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# IDE
+.idea/
+.vscode/
+
+# 解密产物 / 输入音频（可能涉及版权，不入库）
+testdata/
+output/
+output_mp3/
+
+# 本地凭据（勿提交真实 UIN/QM_KEY）
+cookie.py.local
