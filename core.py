@@ -427,13 +427,16 @@ def detect_audio_format(buf):
 
 # 项目内 cookie 配置文件（用户只需改 UIN / QM_KEY 两行）
 PROJECT_COOKIE_FILE = Path(__file__).resolve().parent / "cookie.py"
+# 本地真实凭据文件（已在 .gitignore 中排除、不会入库）：存在时优先于占位符 cookie.py
+LOCAL_COOKIE_FILE = Path(__file__).resolve().parent / "cookie.py.local"
 
 
 def get_cookie_candidates():
-    """凭据候选：仅项目内 cookie.py（显式 --cookie 参数优先于它）。"""
+    """凭据候选：cookie.py.local（本地真实值）> cookie.py（占位符）；显式 --cookie 参数优先于两者。"""
     candidates = []
-    if PROJECT_COOKIE_FILE.is_file():
-        candidates.append(str(PROJECT_COOKIE_FILE))
+    for f in (LOCAL_COOKIE_FILE, PROJECT_COOKIE_FILE):
+        if f.is_file():
+            candidates.append(str(f))
     return candidates
 
 
